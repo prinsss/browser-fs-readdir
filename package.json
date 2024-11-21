@@ -1,11 +1,11 @@
 {
-  "name": "name-placeholder",
-  "description": "desc-placeholder",
+  "name": "browser-fs-readdir",
+  "description": "Read contents of a directory with the File System Access API.",
   "version": "0.0.0",
-  "author": "author-placeholder <email-placeholder>",
+  "author": "prin <hi@prin.studio>",
   "license": "MIT",
-  "homepage": "https://github.com/author-placeholder/name-placeholder",
-  "bugs": "https://github.com/author-placeholder/name-placeholder/issues",
+  "homepage": "https://github.com/prinsss/browser-fs-readdir",
+  "bugs": "https://github.com/prinsss/browser-fs-readdir/issues",
   "type": "module",
   "scripts": {
     "dev": "vite",
