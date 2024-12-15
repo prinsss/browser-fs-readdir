@@ -1,7 +1,7 @@
 {
   "name": "browser-fs-readdir",
   "description": "Read contents of a directory with the File System Access API.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "prin <hi@prin.studio>",
   "license": "MIT",
   "homepage": "https://github.com/prinsss/browser-fs-readdir",
@@ -20,7 +20,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "prepare": "husky",
-    "commitlint": "commitlint --edit"
+    "commitlint": "commitlint --edit",
+    "prepublishOnly": "npm run build:lib"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.6.0",
