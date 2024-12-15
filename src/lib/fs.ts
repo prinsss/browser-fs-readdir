@@ -32,18 +32,28 @@ export async function getFiles(
   recursive = false,
   path = dirHandle.name,
   skipDirectory?: (entry: FileSystemDirectoryHandle) => boolean,
+  progress?: { loaded: number; total: number },
+  onProgress?: (event: ProgressEvent) => void,
 ): Promise<FileWithDirectoryAndFileHandle[]> {
   const dirs: ReturnType<typeof getFiles>[] = [];
   const files: Promise<FileWithDirectoryAndFileHandle>[] = [];
 
+  progress = progress || { loaded: 0, total: 0 };
+
   for await (const entry of dirHandle.values()) {
     const nestedPath = `${path}/${entry.name}`;
     if (entry.kind === 'file') {
+      progress.total += 1;
       files.push(
         entry.getFile().then((f) => {
           const file = f as FileWithDirectoryAndFileHandle;
           file.directoryHandle = dirHandle;
           file.handle = entry;
+
+          // Update progress
+          progress.loaded += 1;
+          onProgress?.(new ProgressEvent('progress', { lengthComputable: true, ...progress }));
+
           return Object.defineProperty(file, 'webkitRelativePath', {
             configurable: true,
             enumerable: true,
@@ -56,7 +66,7 @@ export async function getFiles(
       recursive &&
       (!skipDirectory || !skipDirectory(entry))
     ) {
-      dirs.push(getFiles(entry, recursive, nestedPath, skipDirectory));
+      dirs.push(getFiles(entry, recursive, nestedPath, skipDirectory, progress, onProgress));
     }
   }
 

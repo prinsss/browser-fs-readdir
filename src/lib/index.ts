@@ -14,9 +14,17 @@ export async function readdir(
   options?: {
     recursive?: boolean;
     skipDirectory?: (entry: FileSystemDirectoryHandle) => boolean;
+    onProgress?: (event: ProgressEvent) => void;
   },
 ): Promise<FileWithDirectoryAndFileHandle[]> {
-  return await getFiles(dirHandle, options?.recursive, undefined, options?.skipDirectory);
+  return await getFiles(
+    dirHandle,
+    options?.recursive,
+    undefined,
+    options?.skipDirectory,
+    undefined,
+    options?.onProgress,
+  );
 }
 
 export * from './fs';

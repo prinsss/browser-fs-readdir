@@ -4,6 +4,7 @@ import readdir from './lib';
 function App() {
   const [result, setResult] = useState<File[]>([]);
   const [dragging, setDragging] = useState(false);
+  const [progress, setProgress] = useState('');
 
   return (
     <div className="flex flex-col items-center py-8">
@@ -15,8 +16,14 @@ function App() {
           (dragging ? ' bg-gray-200' : '')
         }
         onClick={async () => {
+          setProgress('');
           const handle = await window.showDirectoryPicker();
-          const files = await readdir(handle, { recursive: true });
+
+          const files = await readdir(handle, {
+            recursive: true,
+            onProgress: (progress) => setProgress(`${progress.loaded}/${progress.total}`),
+          });
+
           setResult(files);
         }}
         onDrop={async (e) => {
@@ -31,7 +38,7 @@ function App() {
         onDragEnter={() => setDragging(true)}
         onDragLeave={() => setDragging(false)}
       >
-        Click or Drop Directory Here
+        {progress ? `Read: ${progress}` : 'Click or Drop Directory Here'}
       </div>
 
       <table className="mt-4">
