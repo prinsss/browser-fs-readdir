@@ -1,7 +1,7 @@
 {
   "name": "browser-fs-readdir",
   "description": "Read contents of a directory with the File System Access API.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "prin <hi@prin.studio>",
   "license": "MIT",
   "homepage": "https://github.com/prinsss/browser-fs-readdir",
